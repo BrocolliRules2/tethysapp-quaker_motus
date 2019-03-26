@@ -6,9 +6,9 @@ class QuakerMotus(TethysAppBase):
     Tethys app class for Quaker Mtus.
     """
 
-    name = 'Quaker Mtus'
+    name = 'Quaker Motus'
     index = 'quaker_motus:home'
-    icon = 'quaker_motus/images/icon.png'
+    icon = 'static/quaker_motus/images/icon.png' 
     package = 'quaker_motus'
     root_url = 'quaker-motus'
     color = '#16a085'
