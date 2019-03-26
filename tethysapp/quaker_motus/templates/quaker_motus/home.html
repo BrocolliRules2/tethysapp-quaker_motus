@@ -6,19 +6,14 @@
     <a data-toggle="modal" data-target="#help-modal"><span class="glyphicon glyphicon-question-sign"></span></a>
   </div>
 {% endblock %}
-<h1>Welcome to Motus</h1>
+
+{% block app_content %}
+ <h1>Welcome to Motus</h1>
   <p>This application is designed to help calculate ground motion acceleration due to Earthquakes in the Western United states. To do so, click anywhere on the map and a pop up menu will appear showing the ground motion acceleration, as well as the 80% and 50% ground acceleration.</p>
   <p> Click on the next tab to get started.</p>
 <br>
 <p>This app is created by the Quakers: Jeff Derricott, Hart Henrichsen, and Anthony Rosas </p>
-
-{% block app_content %}
- 
 {% endblock %}
-
-{# Use the after_app_content block for modals #}
-{% block after_app_content %}
- 
 
 {% block app_actions %}
   

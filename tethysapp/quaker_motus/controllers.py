@@ -2,6 +2,16 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from tethys_sdk.gizmos import Button
 
+
+def map(request):
+    """
+    Controller for the page.
+    """
+    context = {}
+    return render(request, 'quaker_motus/map.html', context)
+
+
+
 @login_required()
 def home(request):
     """
