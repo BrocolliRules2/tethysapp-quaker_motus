@@ -38,6 +38,7 @@
 <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
 <script src="https://js.arcgis.com/4.6/"></script>
 <script>
+var polygon_feature;
 require(["esri/Map","esri/layers/GraphicsLayer","esri/Graphic","esri/geometry/Point","esri/tasks/Geoprocessor","esri/tasks/support/LinearUnit","esri/tasks/support/FeatureSet","esri/views/MapView",  "dojo/domReady!"
 ], function(Map, GraphicsLayer, Graphic, Point, Geoprocessor, LinearUnit, FeatureSet, MapView){
 
@@ -83,7 +84,7 @@ var loading= document.getElementById("Loading");
 
 
 	// Geoprocessing service url
-	var gpUrl = "http://geoserver2.byu.edu/arcgis/rest/services/emily/BufferService/GPServer/Buffer%20Service";
+	var gpUrl = "http://geoserver2.byu.edu/arcgis/rest/services/Motus/FaultFinder/GPServer/Model";
 
     // create a new Geoprocessor
 	var gp = new Geoprocessor(gpUrl);
@@ -94,10 +95,10 @@ var loading= document.getElementById("Loading");
 	//add map click function
 
 	view.on("click",startLoad);
-    view.on("click", bufferPoint);
+    view.on("click", GMACalculator);
 
 	//main function
-    function bufferPoint(event) {
+    function GMACalculator(event) {
 
           graphicsLayer.removeAll();
           var point = new Point({
@@ -113,26 +114,26 @@ var loading= document.getElementById("Loading");
           inputGraphicContainer.push(inputGraphic);
           var featureSet = new FeatureSet();
           featureSet.features = inputGraphicContainer;
-          var bfDistance = new LinearUnit();
-          bfDistance.distance = 100;
-          bfDistance.units = "miles";
+
 
 		  // input parameters
           var params = {
             "Input_Features": featureSet,
-            "Distance": bfDistance
+
           };
           gp.submitJob(params).then(completeCallback, errBack, statusCallback);
     }
 
 	function completeCallback(result){
 
-        gp.getResultData(result.jobId, "Output_Polygons").then(drawResult, drawResultErrBack);
+        gp.getResultData(result.jobId, "Qfaults_2018_shapefile__2_").then(drawResult, drawResultErrBack);
 
 	}
+	polygon_feature.value.features[0].attributes.Shape_Length
 
 	function drawResult(data){
-	    var polygon_feature = data.value.features[0];
+	    polygon_feature = data
+<!--	     polygon_feature = data.value.features[0];-->
 		polygon_feature.symbol = fillSymbol;
 		graphicsLayer.add(polygon_feature);
 		endLoad(data); /////////////////end loading animation
@@ -149,6 +150,8 @@ var loading= document.getElementById("Loading");
     function errBack(err) {
         console.log("gp error: ", err);
     }
+
+
 
 
 
