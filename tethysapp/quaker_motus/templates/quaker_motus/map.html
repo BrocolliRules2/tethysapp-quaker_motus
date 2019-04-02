@@ -38,9 +38,9 @@
 <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
 <script src="https://js.arcgis.com/4.6/"></script>
 <script>
-var polygon_feature;
-require(["esri/Map","esri/layers/GraphicsLayer","esri/Graphic","esri/geometry/Point","esri/tasks/Geoprocessor","esri/tasks/support/LinearUnit","esri/tasks/support/FeatureSet","esri/views/MapView",  "dojo/domReady!"
-], function(Map, GraphicsLayer, Graphic, Point, Geoprocessor, LinearUnit, FeatureSet, MapView){
+
+require(["esri/Map","esri/layers/GraphicsLayer","esri/Graphic","esri/geometry/Point","esri/tasks/Geoprocessor","esri/tasks/support/LinearUnit","esri/tasks/support/FeatureSet","esri/views/MapView",  "dojo/domReady!", "esri/symbols/SimpleLineSymbol"
+], function(Map, GraphicsLayer, Graphic, Point, Geoprocessor, LinearUnit, FeatureSet, MapView, LineStyle){
 
 
 var loading= document.getElementById("Loading");
@@ -80,6 +80,11 @@ var loading= document.getElementById("Loading");
             width: 1
           }
         };
+      var lineStyle = {
+        type: "simple-line", // autocasts as new SimpleFillSymbol()
+        color: [226, 19, 4, 0.75],
+        width: 3
+      };
 
 
 
@@ -126,10 +131,30 @@ var loading= document.getElementById("Loading");
 
 	function completeCallback(result){
 
-        gp.getResultData(result.jobId, "Qfaults_2018_shapefile__2_").then(drawResult, drawResultErrBack);
+        gp.getResultData(result.jobId, "Qfaults_2018_shapefile__2_").then(longestFault, drawResult, drawResultErrBack);
 
 	}
-	polygon_feature.value.features[0].attributes.Shape_Length
+	function longestFault(data){
+	    var i = 0
+	    var maxLength = 0
+	    var maxID = 0
+	    var maxi = 0
+
+	    for (i = 0; i < data.length; i++) {
+	        var faultLength = data.value.features[i].attributes.Shape_Length;
+	        var faultID = data.value.features[i].attributes.fault_id;
+	        if (faultLength > maxLength) {
+	            maxLength = faultLength;
+	            maxID = faultID;
+	            maxi = i;
+	        }
+	    }
+	    var polyline_feature = data.value.features[maxi];
+	    polyline_feature.symbol = lineStyle;
+	    graphicsLayer.add(polyline_feature);
+	    endLoad(data);
+	}
+
 
 	function drawResult(data){
 	    polygon_feature = data
