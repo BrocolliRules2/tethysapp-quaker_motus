@@ -82,3 +82,12 @@ def home(request):
     }
 
     return render(request, 'quaker_motus/home.html', context)
+
+@login_required()
+def proposal(request):
+    """
+	Controller for the proposal page
+    """
+    return render(request, 'quaker_motus/proposal.html', context)
+
+
