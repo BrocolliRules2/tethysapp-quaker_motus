@@ -1,44 +1,3 @@
-{% extends "quaker_motus//base.html" %}
-{% load tethys_gizmos %}
-
-{% block header_buttons %}
-  <div class="header-button glyphicon-button" data-toggle="tooltip" data-placement="bottom" title="Help">
-    <a data-toggle="modal" data-target="#help-modal"><span class="glyphicon glyphicon-question-sign"></span></a>
-  </div>
-{% endblock %}
-
-{% block app_content %}
-
-<style>
-   #viewDiv {
-   padding: 0;
-   margin: 0;
-    max-height:100%;
-    max-width:100%;
-    height:85vh;
-
-  }
-  #inner-app-content{
-  height:90vh;
-  width=100%;
-
-  }
-  #loadingAnimation{
- position:fixed;
-    top: 50%;
-    left: 50%;
-    width: 25px;
-    height:25px;
-    margin-top: -13px; /*set to a negative number 1/2 of your height*/
-    margin-left: -13px; /*set to a negative number 1/2 of your width*/
-
-  }
-</style>
-
-<link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
-<script src="https://js.arcgis.com/4.6/"></script>
-<script>
-
 require(["esri/Map","esri/layers/GraphicsLayer","esri/Graphic","esri/geometry/Point","esri/tasks/Geoprocessor","esri/tasks/support/LinearUnit","esri/tasks/support/FeatureSet","esri/views/MapView",  "dojo/domReady!", "esri/symbols/SimpleLineSymbol"
 ], function(Map, GraphicsLayer, Graphic, Point, Geoprocessor, LinearUnit, FeatureSet, MapView, LineStyle){
 
@@ -103,10 +62,11 @@ var loading= document.getElementById("Loading");
     view.on("click", GMACalculator);
 
 	//main function
+	var point;
     function GMACalculator(event) {
 
           graphicsLayer.removeAll();
-          var point = new Point({
+          point = new Point({
             longitude: event.mapPoint.longitude,
             latitude: event.mapPoint.latitude
           });
@@ -135,11 +95,11 @@ var loading= document.getElementById("Loading");
 
 	}
 <!--	need to define maxID outside of loop so it can be called later-->
-	var maxID = 0
+	var maxID;
 	function longestFault(data){
 	    var i = 0
 	    var maxLength = 0
-
+	    maxID = 0;
 	    var maxi = 0
 
       if (data.length >= 0) {
@@ -159,7 +119,12 @@ var loading= document.getElementById("Loading");
 	    endLoad(data);
 	}
 
-	function magnitudeCalc (maxID,
+	function magnitudeCalc (maxID, point) {
+//	this is where we calculate the magnitude
+
+
+
+	}
 
 
 	function drawResult(data){
@@ -197,15 +162,3 @@ var loading= document.getElementById("Loading");
 
 
 });
-</script>
-
-<div id="viewDiv" style="min-width:100%;min height: 200%;"></div>
-<div id="Loading"></div>
-  <p>Click to make a popup box</p>
-{% endblock %}
-
-
-
-{% block app_actions %}
-
-{% endblock %}
