@@ -59,14 +59,15 @@ var loading= document.getElementById("Loading");
 	//add map click function
 
 	view.on("click",startLoad);
-    view.on("click", GMACalculator);
+    view.on("click",faultFinder);
 
 	//main function
-	var point;
-    function GMACalculator(event) {
+	// var point;
+	var featureSet;
+    function faultFinder(event) {
 
           graphicsLayer.removeAll();
-          point = new Point({
+          var point = new Point({
             longitude: event.mapPoint.longitude,
             latitude: event.mapPoint.latitude
           });
@@ -77,7 +78,7 @@ var loading= document.getElementById("Loading");
           graphicsLayer.add(inputGraphic);
           var inputGraphicContainer = [];
           inputGraphicContainer.push(inputGraphic);
-          var featureSet = new FeatureSet();
+          featureSet = new FeatureSet();
           featureSet.features = inputGraphicContainer;
 
 
@@ -91,49 +92,107 @@ var loading= document.getElementById("Loading");
 
 	function completeCallback(result){
 
-        gp.getResultData(result.jobId, "Qfaults_2018_shapefile__2_").then(longestFault, drawResult, drawResultErrBack);
+        gp.getResultData(result.jobId, "Qfaults_2018_shapefile__2_").then(drawResult, drawResultErrBack);
 
 	}
-<!--	need to define maxID outside of loop so it can be called later-->
+
+// need to define some variables outside of functions so it can be called in multiple
 	var maxID;
-	function longestFault(data){
-	    var i = 0
-	    var maxLength = 0
-	    maxID = 0;
-	    var maxi = 0
-
-      if (data.length >= 0) {
-	    for (i = 0; i < data.length; i++) {
-	        var faultLength = data.value.features[i].attributes.Shape_Length;
-	        var faultID = data.value.features[i].attributes.fault_id;
-	        if (faultLength > maxLength) {
-	            maxLength = faultLength;
-	            maxID = faultID;
-	            maxi = i;
-	        }
-	    }
-	    var polyline_feature = data.value.features[maxi];
-	    polyline_feature.symbol = lineStyle;
-	    graphicsLayer.add(polyline_feature);
-	    }
-	    endLoad(data);
-	}
-
-	function magnitudeCalc (maxID, point) {
-//	this is where we calculate the magnitude
-
-
-
-	}
-
+	var maxLength;
+	var dist;
+	var PHA;
 
 	function drawResult(data){
-	    polygon_feature = data
-<!--	     polygon_feature = data.value.features[0];-->
-		polygon_feature.symbol = fillSymbol;
-		graphicsLayer.add(polygon_feature);
-		endLoad(data); /////////////////end loading animation
+
+        maxLength = 0;
+
+        if (data.length >= 0) {
+            for (i = 0; i < data.length; i++) {
+                var faultLength = data.value.features[i].attributes.Shape_Leng;
+                if (faultLength > maxLength) {
+                maxLength = faultLength/1000;
+                maxID = data.value.features[i].attributes.FID;
+                }
+            }
+
+        var polyline_feature = data.value.features[maxID];
+        polyline_feature.symbol = lineStyle;
+        graphicsLayer.add(polyline_feature);
+        }
+        endLoad(data);
+
 	}
+
+
+	// Geoprocessing service url
+	var gpUrl2 = "http://geoserver2.byu.edu/arcgis/rest/services/Motus/FaultFinder/GPServer/Model";
+
+    // create a new Geoprocessor
+	var gp2 = new Geoprocessor(gpUrl2);
+	// define output spatial reference
+
+    function distanceFinder(event) {
+
+		  // input parameters
+          var params = {
+            "Input_Features": featureSet,
+            "":maxID
+
+          };
+          gp2.submitJob(params).then(completeCallback2, errBack, statusCallback);
+    }
+
+
+    function completeCallback2(result){
+
+        gp.getResultData(result.jobId, "Qfaults_2018_shapefile__2_").then(PHACalculator, drawResultErrBack);
+
+	}
+
+//	function magnitudeCalc () {
+//    // this is where we calculate the magnitude
+//    // we assume the "All" case for the fault slip type
+//        var a = 5.08;
+//        var b = 1.16;
+//        Magnitude = a + b * Math.log(maxLength);
+//	}
+
+	function PHACalculator () {
+	// this is where we calculate the PHA
+	// we assume the larger magnitude associated variables and that each fault is site Class C
+        var a = 5.08;
+        var b = 1.16;
+        var Magnitude = a + b * Math.log(maxLength);
+
+	    var b1 = -0.038;
+	    var b2 = 0.216;
+	    var b3 = 0.0;
+	    var b4 = 0.0;
+	    var b5 = -0.777;
+	    var b6 = 0.158;
+	    var b7 = 0.254;
+	    var h = 5.48;
+	    var d = dist;
+	    var Gb = 0.0;
+	    var Gc = 0.0;
+	    PHA = 0;
+
+	    var R =  sqrt(dist^2 +h^2);
+
+	    PHA = b1 + b2*(Magnitude - 6) + b3*(Magnitude - 6)^2 + b4*R + b5*Math.log(R) + b6*Gb + b7*Gc;
+	    document.getElementById("PHA").innerHTML = "hello "+PHA;
+	}
+
+
+
+
+//	function drawResult(data){
+//	    polygon_feature = data
+//<!--	     polygon_feature = data.value.features[0];-->
+//		polygon_feature.symbol = fillSymbol;
+//		graphicsLayer.add(polygon_feature);
+//		endLoad(data); /////////////////end loading animation
+//	}
 
 	function drawResultErrBack(err) {
         console.log("draw result error: ", err);

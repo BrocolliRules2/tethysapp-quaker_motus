@@ -22,6 +22,9 @@
 <li class="{% if request.path == map_url %}active{% endif %}"><a href="{{ map_url }}">Map</a></li>
 <li class="{% if request.path == proposal_url %}active{% endif %}"><a href="{{ proposal_url }}">Proposal Page</a></li>
 
+<button type="button" onclick="distanceFinder()">Calculate PHA</button>
+<p id="PHA"></p>
+
 {% endblock %}
 
 {% block app_content %}
