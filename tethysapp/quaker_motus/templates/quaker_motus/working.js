@@ -125,7 +125,7 @@ var loading= document.getElementById("Loading");
 
 
 	// Geoprocessing service url
-	var gpUrl2 = "http://geoserver2.byu.edu/arcgis/rest/services/Motus/FaultFinder/GPServer/Model";
+	var gpUrl2 = "http://geoserver2.byu.edu/arcgis/rest/services/Motus/DistanceFinder/GPServer/Model";
 
     // create a new Geoprocessor
 	var gp2 = new Geoprocessor(gpUrl2);
@@ -135,8 +135,10 @@ var loading= document.getElementById("Loading");
 
 		  // input parameters
           var params = {
-            "Input_Features": featureSet,
-            "":maxID
+            //"Input_Features": featureSet,
+            "Expression":maxID,
+            "DistPoint":  ,
+            "FaultLines":  ,
 
           };
           gp2.submitJob(params).then(completeCallback2, errBack, statusCallback);
@@ -145,7 +147,7 @@ var loading= document.getElementById("Loading");
 
     function completeCallback2(result){
 
-        gp.getResultData(result.jobId, "Qfaults_2018_shapefile__2_").then(PHACalculator, drawResultErrBack);
+        gp.getResultData(result.jobId, "DistPoint").then(PHACalculator, drawResultErrBack);
 
 	}
 
@@ -157,13 +159,13 @@ var loading= document.getElementById("Loading");
 //        Magnitude = a + b * Math.log(maxLength);
 //	}
 
-	function PHACalculator () {
-	// this is where we calculate the PHA
-	// we assume the larger magnitude associated variables and that each fault is site Class C
+	function drawResult(data){
+        // this is where we calculate the PHA
+	    // we assume the larger magnitude associated variables and that each fault is site Class C
         var a = 5.08;
         var b = 1.16;
         var Magnitude = a + b * Math.log(maxLength);
-
+        //
 	    var b1 = -0.038;
 	    var b2 = 0.216;
 	    var b3 = 0.0;
@@ -172,7 +174,7 @@ var loading= document.getElementById("Loading");
 	    var b6 = 0.158;
 	    var b7 = 0.254;
 	    var h = 5.48;
-	    var d = dist;
+	    var dist = data.value.features[0].attributes.NEAR_DIST;
 	    var Gb = 0.0;
 	    var Gc = 0.0;
 	    PHA = 0;
@@ -182,17 +184,6 @@ var loading= document.getElementById("Loading");
 	    PHA = b1 + b2*(Magnitude - 6) + b3*(Magnitude - 6)^2 + b4*R + b5*Math.log(R) + b6*Gb + b7*Gc;
 	    document.getElementById("PHA").innerHTML = "hello "+PHA;
 	}
-
-
-
-
-//	function drawResult(data){
-//	    polygon_feature = data
-//<!--	     polygon_feature = data.value.features[0];-->
-//		polygon_feature.symbol = fillSymbol;
-//		graphicsLayer.add(polygon_feature);
-//		endLoad(data); /////////////////end loading animation
-//	}
 
 	function drawResultErrBack(err) {
         console.log("draw result error: ", err);

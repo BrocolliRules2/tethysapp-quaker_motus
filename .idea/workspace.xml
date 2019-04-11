@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3e9d77c4-877a-476e-9dab-b42184d3c10d" name="Default Changelist" comment="LAST CHANGES">
-      <change beforePath="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/working.js" beforeDir="false" afterPath="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/working.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,11 +12,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/working.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="875">
-              <caret line="222" column="3" selection-start-line="222" selection-start-column="3" selection-end-line="222" selection-end-column="3" />
+            <state relative-caret-position="891">
+              <caret line="167" column="10" selection-start-line="167" selection-start-column="10" selection-end-line="167" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -31,7 +30,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/base.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="314">
@@ -52,6 +51,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>fillSym</find>
+      <find>data</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -65,14 +65,14 @@
         <option value="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/proposal.html" />
         <option value="$PROJECT_DIR$/tethysapp/quaker_motus/controllers.py" />
         <option value="$PROJECT_DIR$/tethysapp/quaker_motus/app.py" />
-        <option value="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/working.js" />
         <option value="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/base.html" />
+        <option value="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/working.js" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="67" />
-    <option name="y" value="115" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="649" />
+    <option name="y" value="235" />
     <option name="width" value="1155" />
     <option name="height" value="801" />
   </component>
@@ -153,10 +153,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="115" width="1155" height="801" extended-state="0" />
+    <frame x="67" y="27" width="1853" height="1068" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.40371025" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24972677" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -227,13 +227,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/working.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="875">
-          <caret line="222" column="3" selection-start-line="222" selection-start-column="3" selection-end-line="222" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/map.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="146">
@@ -245,6 +238,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="314">
           <caret line="27" column="14" lean-forward="true" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/working.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="891">
+          <caret line="167" column="10" selection-start-line="167" selection-start-column="10" selection-end-line="167" selection-end-column="10" />
         </state>
       </provider>
     </entry>
