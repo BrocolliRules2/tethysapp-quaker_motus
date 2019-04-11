@@ -131,14 +131,17 @@ var loading= document.getElementById("Loading");
 	var gp2 = new Geoprocessor(gpUrl2);
 	// define output spatial reference
 
+console.log("You made it this far")
+
     function distanceFinder(event) {
 
 		  // input parameters
           var params = {
             //"Input_Features": featureSet,
             "Expression":maxID,
-            "DistPoint":  ,
-            "FaultLines":  ,
+            "DistPoint": featureSet,
+
+            "FaultLines": FIXME
 
           };
           gp2.submitJob(params).then(completeCallback2, errBack, statusCallback);
