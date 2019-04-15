@@ -22,9 +22,11 @@
 <li class="{% if request.path == map_url %}active{% endif %}"><a href="{{ map_url }}">Map</a></li>
 <li class="{% if request.path == proposal_url %}active{% endif %}"><a href="{{ proposal_url }}">Proposal Page</a></li>
 
-<button onclick="app.distanceFinder()">Calculate PHA</button>
+<button id ='button' disabled onclick="app.distanceFinder()">Calculate PHA</button>
 
-<p id="PHA"></p>
+<div id="PHA">Click somewhere in the western United States to calculate peak horizontal acceleration (PHA).</div>
+<!--<p id="PHA_Eighty"></p>-->
+<!--<p id="PHA_Fifty"></p>-->
 
 {% endblock %}
 

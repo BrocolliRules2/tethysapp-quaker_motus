@@ -4,7 +4,11 @@ var maxID;
 var maxLength;
 var dist;
 var PHA;
-var first_result
+var first_result;
+var Magnitude;
+var R;
+var PHA_Eighty;
+var PHA_Fifty;
 
 
 require(["esri/Map","esri/layers/GraphicsLayer","esri/Graphic","esri/geometry/Point","esri/tasks/Geoprocessor","esri/tasks/support/LinearUnit","esri/tasks/support/FeatureSet","esri/views/MapView",  "dojo/domReady!", "esri/symbols/SimpleLineSymbol"
@@ -31,7 +35,7 @@ require(["esri/Map","esri/layers/GraphicsLayer","esri/Graphic","esri/geometry/Po
 	// symbol for input point
 	var markerSymbol = {
           type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-          color: [255, 0, 0],
+          color: [25, 045, 10],
           outline: { // autocasts as new SimpleLineSymbol()
             color: [255, 255, 255],
             width: 2
@@ -49,7 +53,7 @@ require(["esri/Map","esri/layers/GraphicsLayer","esri/Graphic","esri/geometry/Po
         };
       var lineStyle = {
         type: "simple-line", // autocasts as new SimpleFillSymbol()
-        color: [226, 19, 4, 0.75],
+        color: [124, 10, 2, 1],
         width: 3
       };
 
@@ -74,6 +78,17 @@ require(["esri/Map","esri/layers/GraphicsLayer","esri/Graphic","esri/geometry/Po
 
     function faultFinder(event) {
 
+document.getElementById("PHA").innerHTML='';
+    featureSet=null;
+    maxID=null;
+    maxLength=null;
+    dist=null;
+    PHA=0.00;
+    first_result=null;
+    Magnitude=null;
+    R=0.00;
+    PHA_Eighty=null;
+    PHA_Fifty=null;
           graphicsLayer.removeAll();
             var point = new Point({
             longitude: event.mapPoint.longitude,
@@ -117,11 +132,14 @@ require(["esri/Map","esri/layers/GraphicsLayer","esri/Graphic","esri/geometry/Po
             maxID = data.value.features[i].attributes.FID;
             }
 
+
+        }
         var polyline_feature = data.value.features[maxID];
         polyline_feature.symbol = lineStyle;
         graphicsLayer.add(polyline_feature);
-        }
-        endLoad(data);
+        document.getElementById("PHA").innerHTML='Now click the "Calculate PHA" button!';
+        endLoad();
+        document.getElementById('button').disabled=false;
 
 	}
 
@@ -134,9 +152,10 @@ require(["esri/Map","esri/layers/GraphicsLayer","esri/Graphic","esri/geometry/Po
 	// define output spatial reference
 
     function distanceFinder(event) {
+    startLoad();
         var GPString = '"FID" = ' + maxID;
 
-        alert(GPString);
+        //alert(GPString);
 
 		  // input parameters
           var params = {
@@ -144,6 +163,11 @@ require(["esri/Map","esri/layers/GraphicsLayer","esri/Graphic","esri/geometry/Po
             "Point__2_": featureSet
 
           };
+          	if (maxID==null){
+		    document.getElementById("PHA").innerHTML = "No faults were found within 60 kilometers.";
+		    endLoad();
+return;
+	}
           gp2.submitJob(params).then(completeCallback2, errBack, statusCallback);
     }
 
@@ -163,14 +187,11 @@ require(["esri/Map","esri/layers/GraphicsLayer","esri/Graphic","esri/geometry/Po
 //	}
 
 	function drawResult2(data) {
-
-	alert("1231231231")
-	first_result = data
 	// this is where we calculate the PHA
 	// we assume the larger magnitude associated variables and that each fault is site Class C
         var a = 5.08;
         var b = 1.16;
-        var Magnitude = a + b * Math.log(maxLength);
+        Magnitude = a + b * Math.log(maxLength);
 
 	    var b1 = -0.038;
 	    var b2 = 0.216;
@@ -180,15 +201,25 @@ require(["esri/Map","esri/layers/GraphicsLayer","esri/Graphic","esri/geometry/Po
 	    var b6 = 0.158;
 	    var b7 = 0.254;
 	    var h = 5.48;
-	    var d = data.value.features[0].attributes.NEAR_DIST;
+	    var d = (data.value.features[0].attributes.NEAR_DIST)/1000;
 	    var Gb = 0.0;
 	    var Gc = 0.0;
-	    PHA = 0;
+	    R =  Math.sqrt(d*d+ h*h)/1000;
+	    PHA=PHA.toPrecision(3);
 
-	    var R =  sqrt(d^2 +h^2);
+	    PHA = (b1 + b2*(Magnitude - 6)+ b5*Math.log(R) + b3*(Magnitude - 6)^2 + b4*R  + b6*Gb + b7*Gc).toPrecision(3);
+	    //x=PHA.toPrecision(3);
 
-	    PHA = b1 + b2*(Magnitude - 6) + b3*(Magnitude - 6)^2 + b4*R + b5*Math.log(R) + b6*Gb + b7*Gc;
-	    document.getElementById("PHA").innerHTML = "hello "+ PHA;
+	    PHA_Eighty = PHA * .8;
+	    PHA_Fifty = PHA* .5;
+
+	    document.getElementById("PHA").innerHTML = "PHA: "+ PHA+" m/s^2<br>80% PHA: "+PHA_Eighty+" m/s^2<br>50% PHA: "+PHA_Fifty+" m/s^2";
+	    endLoad();
+	    document.getElementById('button').disabled=true;
+//	    document.getElementById("PHA_Eighty").innerHTML = "PHA: "+ PHA_Eighty+ " m/s" + sup("2");
+//	    document.getElementById("PHA_Fifty").innerHTML = "PHA: "+ PHA_Fifty + " m/s" + sup("2");
+
+
 	}
 
 
