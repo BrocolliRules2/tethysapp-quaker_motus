@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3e9d77c4-877a-476e-9dab-b42184d3c10d" name="Default Changelist" comment="LAST CHANGES">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/map.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/working.js" beforeDir="false" afterPath="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/working.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/working.js" beforeDir="false" afterPath="$PROJECT_DIR$/tethysapp/quaker_motus/public/js/working.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,12 +14,15 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/working.js">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tethysapp/quaker_motus/public/js/working.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="133" column="35" lean-forward="true" selection-end-line="216" selection-end-column="3" />
+            <state relative-caret-position="319">
+              <caret line="166" column="23" lean-forward="true" selection-start-line="166" selection-start-column="23" selection-end-line="166" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#6143#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -25,17 +30,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/map.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2625">
-              <caret line="175" column="27" selection-start-line="175" selection-start-column="13" selection-end-line="175" selection-end-column="27" />
+            <state relative-caret-position="525">
+              <caret line="35" column="8" lean-forward="true" selection-start-line="35" selection-start-column="8" selection-end-line="35" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+            <state relative-caret-position="120">
+              <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -77,14 +82,15 @@
         <option value="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/working.js" />
         <option value="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/map.html" />
         <option value="$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/base.html" />
+        <option value="$PROJECT_DIR$/tethysapp/quaker_motus/public/js/working.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="649" />
-    <option name="y" value="235" />
-    <option name="width" value="1155" />
-    <option name="height" value="801" />
+    <option name="x" value="336" />
+    <option name="y" value="142" />
+    <option name="width" value="1145" />
+    <option name="height" value="808" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -92,6 +98,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -115,6 +122,21 @@
               <item name="tethysapp-quaker_motus" type="462c0819:PsiDirectoryNode" />
               <item name="tethysapp" type="462c0819:PsiDirectoryNode" />
               <item name="quaker_motus" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tethysapp-quaker_motus" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tethysapp-quaker_motus" type="462c0819:PsiDirectoryNode" />
+              <item name="tethysapp" type="462c0819:PsiDirectoryNode" />
+              <item name="quaker_motus" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tethysapp-quaker_motus" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tethysapp-quaker_motus" type="462c0819:PsiDirectoryNode" />
+              <item name="tethysapp" type="462c0819:PsiDirectoryNode" />
+              <item name="quaker_motus" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -129,13 +151,17 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../tethysapp-quaker_motus-backup" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tethysapp/quaker_motus/public/js" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -237,24 +263,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/working.js">
+    <entry file="file://$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="133" column="35" lean-forward="true" selection-end-line="216" selection-end-column="3" />
+        <state relative-caret-position="120">
+          <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/map.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2625">
-          <caret line="175" column="27" selection-start-line="175" selection-start-column="13" selection-end-line="175" selection-end-column="27" />
+        <state relative-caret-position="525">
+          <caret line="35" column="8" lean-forward="true" selection-start-line="35" selection-start-column="8" selection-end-line="35" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/quaker_motus/templates/quaker_motus/base.html">
+    <entry file="file://$PROJECT_DIR$/tethysapp/quaker_motus/public/js/working.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+        <state relative-caret-position="319">
+          <caret line="166" column="23" lean-forward="true" selection-start-line="166" selection-start-column="23" selection-end-line="166" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#6143#0" />
+          </folding>
         </state>
       </provider>
     </entry>

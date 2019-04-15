@@ -1,8 +1,16 @@
+var app;
+var featureSet;
+var maxID;
+var maxLength;
+var dist;
+var PHA;
+var first_result
+
+
 require(["esri/Map","esri/layers/GraphicsLayer","esri/Graphic","esri/geometry/Point","esri/tasks/Geoprocessor","esri/tasks/support/LinearUnit","esri/tasks/support/FeatureSet","esri/views/MapView",  "dojo/domReady!", "esri/symbols/SimpleLineSymbol"
 ], function(Map, GraphicsLayer, Graphic, Point, Geoprocessor, LinearUnit, FeatureSet, MapView, LineStyle){
 
-
-var loading= document.getElementById("Loading");
+    var loading= document.getElementById("Loading");
 
 	//a map with basemap
 	var map = new Map({
@@ -63,11 +71,11 @@ var loading= document.getElementById("Loading");
 
 	//main function
 	// var point;
-	var featureSet;
+
     function faultFinder(event) {
 
           graphicsLayer.removeAll();
-          var point = new Point({
+            var point = new Point({
             longitude: event.mapPoint.longitude,
             latitude: event.mapPoint.latitude
           });
@@ -97,22 +105,16 @@ var loading= document.getElementById("Loading");
 	}
 
 // need to define some variables outside of functions so it can be called in multiple
-	var maxID;
-	var maxLength;
-	var dist;
-	var PHA;
 
 	function drawResult(data){
 
         maxLength = 0;
 
-        if (data.length >= 0) {
-            for (i = 0; i < data.length; i++) {
-                var faultLength = data.value.features[i].attributes.Shape_Leng;
-                if (faultLength > maxLength) {
-                maxLength = faultLength/1000;
-                maxID = data.value.features[i].attributes.FID;
-                }
+        for (i = 0; i < data.value.features.length; i++) {
+            var faultLength = data.value.features[i].attributes.Shape_Leng;
+            if (faultLength > maxLength) {
+            maxLength = faultLength;
+            maxID = data.value.features[i].attributes.FID;
             }
 
         var polyline_feature = data.value.features[maxID];
@@ -131,17 +133,15 @@ var loading= document.getElementById("Loading");
 	var gp2 = new Geoprocessor(gpUrl2);
 	// define output spatial reference
 
-console.log("You made it this far")
-
     function distanceFinder(event) {
+        var GPString = '"FID" = ' + maxID;
+
+        alert(GPString);
 
 		  // input parameters
           var params = {
-            //"Input_Features": featureSet,
-            "Expression":maxID,
-            "DistPoint": featureSet,
-
-            "FaultLines": FIXME
+            "Expression": GPString,
+            "Point__2_": featureSet
 
           };
           gp2.submitJob(params).then(completeCallback2, errBack, statusCallback);
@@ -150,7 +150,7 @@ console.log("You made it this far")
 
     function completeCallback2(result){
 
-        gp.getResultData(result.jobId, "DistPoint").then(PHACalculator, drawResultErrBack);
+        gp2.getResultData(result.jobId, "Point_result").then(drawResult2, drawResultErrBack);
 
 	}
 
@@ -162,13 +162,16 @@ console.log("You made it this far")
 //        Magnitude = a + b * Math.log(maxLength);
 //	}
 
-	function drawResult(data){
-        // this is where we calculate the PHA
-	    // we assume the larger magnitude associated variables and that each fault is site Class C
+	function drawResult2(data) {
+
+	alert("1231231231")
+	first_result = data
+	// this is where we calculate the PHA
+	// we assume the larger magnitude associated variables and that each fault is site Class C
         var a = 5.08;
         var b = 1.16;
         var Magnitude = a + b * Math.log(maxLength);
-        //
+
 	    var b1 = -0.038;
 	    var b2 = 0.216;
 	    var b3 = 0.0;
@@ -177,16 +180,27 @@ console.log("You made it this far")
 	    var b6 = 0.158;
 	    var b7 = 0.254;
 	    var h = 5.48;
-	    var dist = data.value.features[0].attributes.NEAR_DIST;
+	    var d = data.value.features[0].attributes.NEAR_DIST;
 	    var Gb = 0.0;
 	    var Gc = 0.0;
 	    PHA = 0;
 
-	    var R =  sqrt(dist^2 +h^2);
+	    var R =  sqrt(d^2 +h^2);
 
 	    PHA = b1 + b2*(Magnitude - 6) + b3*(Magnitude - 6)^2 + b4*R + b5*Math.log(R) + b6*Gb + b7*Gc;
-	    document.getElementById("PHA").innerHTML = "hello "+PHA;
+	    document.getElementById("PHA").innerHTML = "hello "+ PHA;
 	}
+
+
+
+
+//	function drawResult(data){
+//	    polygon_feature = data
+//<!--	     polygon_feature = data.value.features[0];-->
+//		polygon_feature.symbol = fillSymbol;
+//		graphicsLayer.add(polygon_feature);
+//		endLoad(data); /////////////////end loading animation
+//	}
 
 	function drawResultErrBack(err) {
         console.log("draw result error: ", err);
@@ -200,11 +214,6 @@ console.log("You made it this far")
         console.log("gp error: ", err);
     }
 
-
-
-
-
-
     function startLoad(graphic){
     loading.innerHTML= "<img id='loadingAnimation' src='../../../static/quaker_motus/images/loading.gif'>";
     }
@@ -212,6 +221,8 @@ console.log("You made it this far")
     loading.innerText="";
     }
 
+    // add public functions to variable app
+    app = {distanceFinder: distanceFinder};
 
 
 });
