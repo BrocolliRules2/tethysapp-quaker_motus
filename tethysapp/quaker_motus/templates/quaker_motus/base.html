@@ -17,16 +17,15 @@
 {% url 'quaker_motus:home' as home_url %}
 {% url 'quaker_motus:map' as map_url %}
 {% url 'quaker_motus:proposal' as proposal_url %}
+{% url 'quaker_motus:design' as design_url %}
 
 <li class="{% if request.path == home_url %}active{% endif %}"><a href="{{ home_url }}">Home Page</a></li>
 <li class="{% if request.path == map_url %}active{% endif %}"><a href="{{ map_url }}">Map</a></li>
 <li class="{% if request.path == proposal_url %}active{% endif %}"><a href="{{ proposal_url }}">Proposal Page</a></li>
-
+<li class="{% if request.path == design_url %}active{% endif %}"><a href="{{ design_url }}">Design Page</a></li>
 <button id ='button' disabled onclick="app.distanceFinder()">Calculate PHA</button>
 
 <div id="PHA">Click somewhere in the western United States to calculate peak horizontal acceleration (PHA).</div>
-<!--<p id="PHA_Eighty"></p>-->
-<!--<p id="PHA_Fifty"></p>-->
 
 {% endblock %}
 
