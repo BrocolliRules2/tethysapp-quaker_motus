@@ -8,7 +8,7 @@ class QuakerMotus(TethysAppBase):
 
     name = 'Quaker Motus'
     index = 'quaker_motus:home'
-    icon = 'static/quaker_motus/images/icon.png' 
+    icon = '/quaker_motus/images/icon.gif'
     package = 'quaker_motus'
     root_url = 'quaker-motus'
     color = '#16a085'
@@ -29,6 +29,20 @@ class QuakerMotus(TethysAppBase):
                 url='quaker-motus',
                 controller='quaker_motus.controllers.home'
             ),
-        )
+            UrlMap(
+                name='map',
+                url='quaker-motus/map',
+                controller='quaker_motus.controllers.map'
+            ),
+            UrlMap(
+                name='design_pages',
+                url='quaker-motus/design',
+                controller='quaker_motus.controllers.design_pages'
+            ),
+            UrlMap(
+                name='proposal_page',
+                url='quaker-motus/proposal',
+                controller='quaker_motus.controllers.proposal'
+            ))
 
         return url_maps

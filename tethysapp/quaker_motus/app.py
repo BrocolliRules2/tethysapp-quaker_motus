@@ -35,6 +35,11 @@ class QuakerMotus(TethysAppBase):
                 controller='quaker_motus.controllers.map'
             ),
             UrlMap(
+                name='design_pages',
+                url='quaker-motus/design',
+                controller='quaker_motus.controllers.design_pages'
+            ),
+            UrlMap(
                 name='proposal_page',
                 url='quaker-motus/proposal',
                 controller='quaker_motus.controllers.proposal'

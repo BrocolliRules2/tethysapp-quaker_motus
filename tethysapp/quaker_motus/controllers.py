@@ -2,13 +2,23 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from tethys_sdk.gizmos import Button
 
-
+@login_required()
 def map(request):
     """
     Controller for the page.
     """
     context = {}
     return render(request, 'quaker_motus/map.html', context)
+
+
+@login_required()
+def proposal(request):
+    context={}
+    return render(request, 'quaker_motus/proposal.html', context)
+@login_required()
+def design_pages(request):
+    context={}
+    return render(request, 'quaker_motus/design_pages.html', context)
 
 
 
@@ -82,12 +92,3 @@ def home(request):
     }
 
     return render(request, 'quaker_motus/home.html', context)
-
-@login_required()
-def proposal(request):
-    """
-	Controller for the proposal page
-    """
-    return render(request, 'quaker_motus/proposal.html', context)
-
-
