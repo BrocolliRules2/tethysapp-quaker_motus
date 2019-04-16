@@ -8,7 +8,7 @@ def design_pages(request):
     Controller for the page.
     """
     context = {}
-    return render(request, 'quaker_motus/map.html', context)
+    return render(request, 'quaker_motus/design_pages.html', context)
 @login_required()
 def map(request):
     """
